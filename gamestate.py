@@ -16,7 +16,8 @@ class GameState:
 
     def update_round_phase(self, phase):
         self.round_phase = phase
-        if phase == "freezetime":
+        #print(f"round phase {phase}")
+        if phase in ("freezetime", "live"):
             #print("Setting volume to high")
             volume.highVolume()
             self.alive = 1
@@ -35,6 +36,8 @@ class GameState:
             #print("Setting volume to low")
             self.alive = 0
             volume.deathVolume()
+        elif self.player.state.flashed > 200:
+            volume.highVolume()
 
     def update_player_flashed(self, flashed):
         if self.player.state.flashed != flashed:
